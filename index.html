@@ -12,16 +12,15 @@
   <link rel="stylesheet" href="assets/milieu-tokens.css">
   <script>
     // Applied before first paint to avoid a light flash for dark-theme users.
+    // Light is the default; dark only when the visitor has chosen it.
     (function () {
       var stored = null;
       try { stored = localStorage.getItem("milieu-theme"); } catch (e) {}
-      var dark = stored ? stored === "dark"
-        : window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (dark) document.documentElement.classList.add("theme-dark");
+      if (stored === "dark") document.documentElement.classList.add("theme-dark");
     })();
   </script>
   <style>
-    /* Layout only — every colour and component style comes from milieu-tokens.css. */
+    /* Layout only: every colour and component style comes from milieu-tokens.css. */
     * { margin: 0; box-sizing: border-box; }
 
     .page {
@@ -163,7 +162,7 @@
       <button class="theme-toggle milieu-btn milieu-btn--secondary hover-surface" id="themeToggle" type="button">Dark theme</button>
     </header>
 
-    <p class="intro">One place for every Milieu Family Services webapp. Pick a tool below — each opens in a new tab and signs you in on its own page.</p>
+    <p class="intro">One place for every Milieu Family Services webapp. Pick a tool below. Each opens in a new tab and signs you in on its own page.</p>
 
     <main>
       <ul class="apps" id="apps">
@@ -172,7 +171,7 @@
             <h2>Labour Relations</h2>
             <span class="status" role="status"><span class="status__dot"></span><span class="status__label">Checking…</span></span>
           </div>
-          <p class="app-card__desc">Describe a workplace incident in plain language and get a structured written analysis against your own uploaded policies and collective agreement — provisions engaged, breaches, and a progressive-discipline recommendation.</p>
+          <p class="app-card__desc">Describe a workplace incident in plain language and get a structured written analysis against your own uploaded policies and collective agreement: provisions engaged, breaches, and a progressive-discipline recommendation.</p>
           <p class="app-card__access">For managers and HR. Sign in with your Labour Relations account.</p>
           <div class="app-card__spacer"></div>
           <a class="milieu-btn milieu-btn--primary hover-solid" target="_blank" rel="noopener">Open</a>
@@ -195,7 +194,7 @@
             <span class="status" role="status"><span class="status__dot"></span><span class="status__label">Checking…</span></span>
           </div>
           <p class="app-card__desc">Runs the nine annual satisfaction surveys and reports the results through a dashboard that can look at one survey, several, or all of them at once.</p>
-          <p class="app-card__access">Respondents enter with the password their program gives them — no account needed. Administrators sign in at /admin.</p>
+          <p class="app-card__access">Respondents enter with the password their program gives them, no account needed. Administrators sign in at /admin.</p>
           <div class="app-card__spacer"></div>
           <a class="milieu-btn milieu-btn--primary hover-solid" target="_blank" rel="noopener">Open</a>
         </li>
@@ -205,7 +204,7 @@
             <h2>Upload Portal</h2>
             <span class="status" role="status"><span class="status__dot"></span><span class="status__label">Checking…</span></span>
           </div>
-          <p class="app-card__desc">Photograph a document on your phone and it ends up in the right folder on the shared drive — nothing is deleted until a computer confirms the file made it.</p>
+          <p class="app-card__desc">Photograph a document on your phone and it ends up in the right folder on the shared drive. Nothing is deleted until a computer confirms the file made it.</p>
           <p class="app-card__access">Staff sign in with their program's password. Program admins use /admin.</p>
           <div class="app-card__spacer"></div>
           <a class="milieu-btn milieu-btn--primary hover-solid" target="_blank" rel="noopener">Open</a>
@@ -215,12 +214,12 @@
 
     <footer class="site-footer">
       <img src="assets/snrgy-mark.png" alt="SNRGY">
-      <span>Built by SNRGY for Milieu Family Services</span>
+      <span>Powered by SNRGY</span>
     </footer>
   </div>
 
   <script>
-    // Every app URL lives here — edit this object and nothing else.
+    // Every app URL lives here. Edit this object and nothing else.
     var APPS = {
       lr:         "https://lr.snrgysystems.com",
       interviews: "https://interviews.snrgysystems.com",
@@ -233,9 +232,9 @@
       card.querySelector("a.milieu-btn").href = url;
 
       // The apps don't send CORS headers, so this is a no-cors reachability
-      // ping: an opaque response means the server answered (any status code —
-      // "up" means "responded", not "healthy"); a rejection or timeout means
-      // it didn't.
+      // ping: an opaque response means the server answered (any status code,
+      // so "up" means "responded", not "healthy"); a rejection or timeout
+      // means it didn't.
       var status = card.querySelector(".status");
       var label = card.querySelector(".status__label");
       var controller = new AbortController();
@@ -252,7 +251,7 @@
         .finally(function () { clearTimeout(timer); });
     });
 
-    // Theme toggle — the tokens file swaps every colour when .theme-dark is on <html>.
+    // Theme toggle: the tokens file swaps every colour when .theme-dark is on <html>.
     var toggle = document.getElementById("themeToggle");
     function syncToggle() {
       var dark = document.documentElement.classList.contains("theme-dark");
